@@ -1,0 +1,30 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+.sizingButtons {
+    background-color: #222;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    z-index: 32;
+}
+.bottomRightButton {
+    bottom: 0px;
+    right: 0px;
+}
+.bottomLeftButton{
+    bottom: 0px;
+}
+.topRightButton{
+    right: 0px;
+}
+.imageContainer{
+    position: absolute;
+    z-index: 31;
+    border-style: dashed;
+    border-width: 2px;
+}
+.image{
+    position: absolute;
+    z-index: 30;
+}

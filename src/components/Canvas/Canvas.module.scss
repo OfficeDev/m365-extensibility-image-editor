@@ -1,0 +1,41 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+.canvas {
+    background-color: white;
+    box-shadow: 5px 5px 5px var(--canvasDropShadow);
+    line-height: 100%;
+}
+.image {
+    position: absolute;
+    z-index: 20;
+}
+.indicatorLayer {
+    position: absolute;
+    z-index: 10;
+}
+.canvasFlexContainer {
+    display: flex;
+    height: calc(100vh - 100px);
+    overflow: auto;
+    margin-left: 10px;
+    margin-top: 10px;
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #858585;
+    }
+}
+.canvasContainer {
+    position: relative;
+}
+.input {
+    position: absolute;
+    display: none;
+    width: 200px;
+    height: 100px;
+    z-index: 20;
+    resize: both;
+}

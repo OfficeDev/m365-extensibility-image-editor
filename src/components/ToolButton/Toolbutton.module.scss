@@ -1,0 +1,31 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+.button {
+    border-radius: 3px;
+    height: 35px;
+    width: 35px;
+    min-width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    background-color: var(--toolButtonColor);
+    margin-right: 4px;
+    border-color: var(--buttonBorder);
+    color: var(--buttonTextColor);
+    &:hover {
+        border-color: var(--buttonBorderActive);
+    }
+}
+
+.buttonActive {
+    border-color: var(--buttonBorderActive);
+}
+
+.icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    font-weight: 600;
+}

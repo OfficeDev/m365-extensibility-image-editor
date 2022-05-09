@@ -1,0 +1,30 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+.autoSaveIconContainer {
+    position: relative;
+}
+
+.cloudIcon {
+    font-size: 20px;
+}
+
+.refreshIcon {
+    position: absolute;
+    top: 7px;
+    left: 12px;
+    font-size: 14px;
+    animation-name: spin;
+    animation-duration: 2000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+  
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

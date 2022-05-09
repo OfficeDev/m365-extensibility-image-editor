@@ -1,0 +1,20 @@
+{
+    "presets": [
+        "@babel/preset-env",
+        [
+            // remove runtime automatic with babel 8 release
+            // https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+            "@babel/preset-react",
+            {
+                "runtime": "automatic"
+            }
+        ],
+        "@babel/preset-typescript"
+    ],
+    "plugins": ["@babel/plugin-transform-runtime"],
+    "env": {
+        "production": {
+            "presets": ["minify"]
+        }
+    }
+}

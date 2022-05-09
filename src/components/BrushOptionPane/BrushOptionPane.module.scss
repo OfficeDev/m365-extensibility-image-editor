@@ -1,0 +1,34 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+.container {
+    position: absolute;
+    width: 250px;
+    padding: 10px;
+    background-color: var(--optionPaneBackground);
+    border: 1px solid var(--buttonBorder);
+    z-index: 1000;
+    left: calc(50vw - 110px);
+}
+
+.brushSizeSelections {
+    color: 'white';
+    background: 'black';
+    border-radius: '50%';
+    margin: '5px';
+    width: '25px';
+    height: '25px';
+    min-width: '25px';
+    min-height: '25px';
+}
+
+.brushLineContainer {
+    height: 75px;
+}
+
+.brushLine {
+    border-radius: 10px;
+    width: 75%;
+    border: solid;
+    border-color: var(--textColor);
+}

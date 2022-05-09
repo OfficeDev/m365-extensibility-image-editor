@@ -1,0 +1,39 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+.buttonContainer {
+    background-color: #f5f6f7;
+}
+
+.loadingIconContainer {
+    border-radius: 3px;
+    height: 35px;
+    width: 35px;
+    min-width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: transparent;
+    padding: 0px;
+    background-color: transparent;
+}
+
+.toolbarContainer {
+    height: 89px;
+    width: 100%;
+    padding: 6px;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.topBar {
+    height: 90px;
+    width: 100%;
+    background-color: var(--toolbarColor);
+}
+
+.centerContainer {
+    display: flex;
+    flex-direction: row;
+}
