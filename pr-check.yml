@@ -1,0 +1,52 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+pr:
+  autoCancel: true
+  branches:
+    include:  
+      - main
+
+jobs:
+- job: Job_PR
+  displayName: ImageEditor PR Check
+  pool:
+    vmImage: ubuntu-latest
+  steps:
+  - checkout: self
+
+  - task: NodeTool@0
+    displayName: Use Node 14.17.0
+    inputs:
+      versionSpec: '14.17.0'
+
+  - task: YarnInstaller@3
+    displayName: 'Install Yarn'
+    inputs:
+      versionSpec: '1.22.5'
+
+  - script: npm install -g npm@7
+    displayName: 'Installing npm v7'
+
+  - task: npmAuthenticate@0
+    inputs:
+      workingFile: '.npmrc'
+
+  - task: Yarn@3
+    displayName: 'Yarn Install'
+    inputs:
+        productionMode: false
+
+  - task: Npm@1
+    displayName: Linting
+    inputs:
+      command: 'custom'
+      customCommand: 'run lint'
+
+  - task: Npm@1
+    displayName: Unit Tests
+    inputs:
+      command: 'custom'
+      customCommand: 'run test'

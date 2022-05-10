@@ -1,0 +1,67 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+.modalContainer {
+    width: 700px;
+    height: 90vh;
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #80b3ff;
+    }
+}
+
+.listContainer {
+    margin-top: 20px;
+}
+
+.scrollableContentClassName {
+    overflow: hidden;
+}
+
+.modalStyles {
+    width: 100%;
+}
+
+.itemCell {
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom-width: 1;
+    border-bottom-style: solid;
+    border-bottom-color: #F3F2F1;
+    display: flex;
+    &:hover { 
+        background: #e7e6e6; 
+        cursor: pointer;
+    }
+}
+
+.itemImage {
+    flex-shrink: 0;
+    margin: 3px;
+}
+
+.itemContent {
+    margin-left: 10;
+    overflow: hidden;
+    flex-grow: 1;
+    width: 500px;
+    text-align: center;
+    padding-top: 17px;
+    &:hover {  
+        cursor: pointer;
+    }
+}
+
+.itemName {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--textColor);
+}
+
+.deleteButton {
+    padding: 12px;
+}

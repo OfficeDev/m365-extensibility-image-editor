@@ -1,0 +1,37 @@
+{
+    "$schema": "https://raw.githubusercontent.com/OfficeDev/microsoft-teams-app-schema/preview/DevPreview/MicrosoftTeams.schema.json",
+    "manifestVersion": "m365DevPreview",
+    "version": "1.0.0",
+    "id": "d2c55aa8-dd7e-4e10-8d21-d9a694a1b6c5",
+    "packageName": "com.microsoft.teams.ImageEditor",
+    "developer": {
+        "name": "Microsoft",
+        "websiteUrl": "https://microsoft.com",
+        "privacyUrl": "https://privacy.microsoft.com/",
+        "termsOfUseUrl": "https://support.microsoft.com/"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "ImageEditor",
+        "full": "ImageEditor"
+    },
+    "description": {
+        "short": "ImageEditor",
+        "full": "ImageEditor"
+    },
+    "accentColor": "#FFFFFF",
+    "staticTabs": [
+        {
+            "entityId": "ImageEditor",
+            "name": "ImageEditor",
+            "contentUrl": "https://localhost:8080",
+            "websiteUrl": "https://localhost:8080",
+            "scopes": ["personal"]
+        }
+    ],
+    "permissions": ["identity", "messageTeamMembers"],
+    "validDomains": ["*"]
+}
