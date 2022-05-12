@@ -116,8 +116,8 @@ export const getMouseCoordinate = (
 ): Coordinate => {
     let computedX = (event.clientX - boundings.left + scrollLeft) * 2;
     let computedY = (event.clientY - boundings.top + scrollTop) * 2;
-    computedX = computedX / (zoomPercentage / 100);
-    computedY = computedY / (zoomPercentage / 100);
+    computedX = Math.round(computedX / (zoomPercentage / 100));
+    computedY = Math.round(computedY / (zoomPercentage / 100));
     return {
         x: computedX,
         y: computedY,
