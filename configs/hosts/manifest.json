@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/OfficeDev/microsoft-teams-app-schema/preview/DevPreview/MicrosoftTeams.schema.json",
     "manifestVersion": "m365DevPreview",
     "version": "1.0.0",
-    "id": "d2c55aa8-dd7e-4e10-8d21-d9a694a1b6c5",
+    "id": "",
     "packageName": "com.microsoft.teams.ImageEditor",
     "developer": {
         "name": "Microsoft",
