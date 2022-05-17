@@ -40,7 +40,7 @@ To run on localhost using webpack devserver:
 
 Dev server will run on <https://localhost:8080> by default.
   
-Skip unsafe localhost (no localhost cert) in the browser for development
+Skip unsafe localhost (no localhost cert) in the browser for development.
 Alternatively use your own cert and domain name
 
 ### Registering the Image Editor App and Setting Up Sign In
