@@ -45,7 +45,7 @@ Alternatively use your own cert and domain name.
 
 ### Registering the Image Editor App and Setting Up Sign In
 
-In order to get Sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do the essential steps:
+In order to get Sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do these essential steps:
   
 1. **Create Test Tenant**
 For creating a test tenant see <https://docs.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started>
@@ -64,7 +64,7 @@ For creating a test tenant see <https://docs.microsoft.com/en-us/office/develope
 
     - We need to set the new application id into the configs of the app code.
     - If have not done so, clone this repository.
-    - Go to <https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade> to see all of your App Registrations
+    - Go to <https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade> to see all of your app registrations
     - Click on the 'All applications'
     - Click on the entry of your **App Registration** made in step 2.
     - Take note of the application id from the overview tab of the app registration, this value should be a guid
@@ -99,35 +99,36 @@ Within Microsoft Teams, a user can upload a 'manifest file' (config file) that i
 3. Set a list of valid domains under 'validDomains', which accepts an array with type string
 4. zip all files in the **configs\hosts** folder (do not zip the folder itself, just the contents)
 5. go to <https://dev.teams.microsoft.com/apps> and click **Import App** to upload the .zip file.
-6. go to the new app's entry, click **preview app**, and after teams has loaded, click add.
+6. go to the new app's entry, click **preview app**, and 
+teams has loaded, click add.
   
 <img src="https://user-images.githubusercontent.com/14112046/165679846-b9460945-e084-4673-80de-9a844ab8a4d3.png" alt="drawing" width="800"/>
   
 By default the app will only show up in your teams application. To enable a multi-hub experience, you will need to meet certain prerequisites as described in this article: <https://docs.microsoft.com/en-us/microsoftteams/platform/m365-apps/prerequisites>
   
-Please note that after enrolling your developer tenant for Office 365 Targeted releases, it may take upwards of 5 days for your tenant to be part of the release.
+Please note that after enrolling your developer tenant for Office 365 Targeted releases, it may take upwards of 5 days for your tenant to be part of the release. After that, you will be able to see your app in outlook and office.
   
 **Access app on Teams**  
-<https://www.teams.com>
+<https://www.teams.com>  
 <img src="https://user-images.githubusercontent.com/14112046/165680264-a4230731-48ca-4208-8647-511893507750.png" alt="drawing" width="800"/>
-
+  
 **Access app on Office**  
-<https://www.office.com/>
-<img src="https://user-images.githubusercontent.com/102331168/166322444-09cc2110-b188-455f-bc7a-a8e9fc408769.png" alt="drawing" width="600"/>
-
-**Access app on Outlook**
-<https://www.outlook.com/>
+<https://www.office.com/>  
+<img src="https://user-images.githubusercontent.com/14112046/169156017-7f40ba34-74db-4004-8bd7-ebf4565b7a48.png" alt="drawing" width="600"/>
+  
+**Access app on Outlook**  
+<https://www.outlook.com/>  
 <img src="https://user-images.githubusercontent.com/14112046/165680783-343d7408-88dc-4705-b085-0f6ec79c41ac.png" alt="drawing" width="800"/>
-
-For more information on the app manifest:  
-<https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema-dev-preview>
-
-For more information on the app SDK:  
-<https://docs.microsoft.com/en-us/javascript/api/overview/msteams-client?view=msteams-client-js-latest>
 
 For more information on extending your app across Microsoft 365:  
 <https://docs.microsoft.com/en-us/microsoftteams/platform/m365-apps/overview>
-
+  
+For more information on the app manifest:  
+<https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema-dev-preview>
+  
+For more information on the app SDK:  
+<https://docs.microsoft.com/en-us/javascript/api/overview/msteams-client?view=msteams-client-js-latest>
+  
 ### Build production
 
 Building minified production files  
