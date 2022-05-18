@@ -105,18 +105,18 @@ Within Microsoft Teams, a user can upload a 'manifest file' (config file) that i
   
 By default the app will only show up in your teams application. To enable a multi-hub experience, you will need to meet certain prerequisites as described in this article: <https://docs.microsoft.com/en-us/microsoftteams/platform/m365-apps/prerequisites>
   
-Please note that after enrolling your developer tenant for Office 365 Targeted releases, it may take upwards of 5 days for your tenant to be part of the release.
+Please note that after enrolling your developer tenant for Office 365 Targeted releases, it may take upwards of 5 days for your tenant to be part of the release. AFter that, you will be able to see your app in outlook and office.
   
 **Access app on Teams**  
-<https://www.teams.com>
+<https://www.teams.com>  
 <img src="https://user-images.githubusercontent.com/14112046/165680264-a4230731-48ca-4208-8647-511893507750.png" alt="drawing" width="800"/>
-
+  
 **Access app on Office**  
-<https://www.office.com/>
-<img src="https://user-images.githubusercontent.com/102331168/166322444-09cc2110-b188-455f-bc7a-a8e9fc408769.png" alt="drawing" width="600"/>
-
+<https://www.office.com/>  
+<img src="https://user-images.githubusercontent.com/14112046/169156017-7f40ba34-74db-4004-8bd7-ebf4565b7a48.png" alt="drawing" width="600"/>
+  
 **Access app on Outlook**
-<https://www.outlook.com/>
+<https://www.outlook.com/>  
 <img src="https://user-images.githubusercontent.com/14112046/165680783-343d7408-88dc-4705-b085-0f6ec79c41ac.png" alt="drawing" width="800"/>
 
 For more information on the app manifest:  
