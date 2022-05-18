@@ -99,13 +99,14 @@ Within Microsoft Teams, a user can upload a 'manifest file' (config file) that i
 3. Set a list of valid domains under 'validDomains', which accepts an array with type string
 4. zip all files in the **configs\hosts** folder (do not zip the folder itself, just the contents)
 5. go to <https://dev.teams.microsoft.com/apps> and click **Import App** to upload the .zip file.
-6. go to the new app's entry, click **preview app**, and after teams has loaded, click add.
+6. go to the new app's entry, click **preview app**, and 
+teams has loaded, click add.
   
 <img src="https://user-images.githubusercontent.com/14112046/165679846-b9460945-e084-4673-80de-9a844ab8a4d3.png" alt="drawing" width="800"/>
   
 By default the app will only show up in your teams application. To enable a multi-hub experience, you will need to meet certain prerequisites as described in this article: <https://docs.microsoft.com/en-us/microsoftteams/platform/m365-apps/prerequisites>
   
-Please note that after enrolling your developer tenant for Office 365 Targeted releases, it may take upwards of 5 days for your tenant to be part of the release. AFter that, you will be able to see your app in outlook and office.
+Please note that after enrolling your developer tenant for Office 365 Targeted releases, it may take upwards of 5 days for your tenant to be part of the release. After that, you will be able to see your app in outlook and office.
   
 **Access app on Teams**  
 <https://www.teams.com>  
