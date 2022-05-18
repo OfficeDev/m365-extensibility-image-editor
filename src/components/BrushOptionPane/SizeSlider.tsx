@@ -29,9 +29,9 @@ export const SizeSlider: React.FC<Props> = ({
             {isVisible && (
                 <Stack tokens={{ childrenGap: 10 }}>
                     <Slider
-                        min={0}
+                        min={1}
                         max={50}
-                        step={5}
+                        step={1}
                         className={styles.slider}
                         defaultValue={defaultValue}
                         onChange={onImageEditorSliderChange}

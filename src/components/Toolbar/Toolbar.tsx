@@ -181,6 +181,12 @@ export const Toolbar: React.FC = (): JSX.Element => {
             dialogsContext.dispatch({ type: 'toggleSaveDialog' });
     };
 
+    const isImageStorageManagerDisabled = Boolean(
+        canvasContext.state.imageEditorStorageManager,
+    );
+
+    const disabledReason = 'Functionality disabled without sign in';
+
     return (
         <div className={styles.topBar}>
             <Stack horizontal className={styles.toolbarContainer}>
@@ -189,19 +195,32 @@ export const Toolbar: React.FC = (): JSX.Element => {
                         iconName={'Add'}
                         onClick={onNew}
                         ariaLabel={'New file'}
+                        title={'New file'}
                     />
                     <Toolbutton
                         iconName={'Save'}
                         onClick={onSaveClicked}
                         ariaLabel={'Save file'}
+                        isDisabled={isImageStorageManagerDisabled}
+                        title={
+                            isImageStorageManagerDisabled
+                                ? disabledReason
+                                : 'Save File'
+                        }
                     />
                     <Toolbutton
                         iconName={'OpenFolderHorizontal'}
                         onClick={onOpenClicked}
                         ariaLabel={'Open file'}
+                        isDisabled={isImageStorageManagerDisabled}
+                        title={
+                            isImageStorageManagerDisabled
+                                ? disabledReason
+                                : 'Open File'
+                        }
                     />
                     <div className={styles.loadingIconContainer}>
-                        {isShowAutoSaveLabel && <AutoSaveLabel></AutoSaveLabel>}
+                        {isShowAutoSaveLabel && <AutoSaveLabel />}
                     </div>
                 </Toolgroup>
                 <div className={styles.centerContainer}>
@@ -214,6 +233,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onLineClicked}
                             ariaLabel={'Line tool'}
+                            title={'Line tool'}
                         />
                         <Toolbutton
                             iconName={'RectangleShape'}
@@ -223,6 +243,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onRectangleClicked}
                             ariaLabel={'Rectangle tool'}
+                            title={'Rectangle tool'}
                         />
                         <Toolbutton
                             iconName={'CircleRing'}
@@ -232,6 +253,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onCircleClicked}
                             ariaLabel={'Circle tool'}
+                            title={'Circle tool'}
                         />
                         <Toolbutton
                             iconName={'ArrowTallUpRight'}
@@ -241,6 +263,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onArrowClicked}
                             ariaLabel={'Arrow tool'}
+                            title={'Arrow tool'}
                         />
                     </Toolgroup>
                     <Toolgroup width={120}>
@@ -252,6 +275,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onImageEditorClicked}
                             ariaLabel={'Brush tool'}
+                            title={'Brush tool'}
                         />
                         <Toolbutton
                             iconName={'Highlight'}
@@ -261,6 +285,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onHighlighterClicked}
                             ariaLabel={'Highlight tool'}
+                            title={'Highlight tool'}
                         />
                         <Toolbutton
                             iconName={'EraseTool'}
@@ -270,6 +295,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onEraseClicked}
                             ariaLabel={'Eraser tool'}
+                            title={'Eraser tool'}
                         />
                         <Toolbutton
                             iconName={'BucketColor'}
@@ -278,6 +304,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onBucketClicked}
                             ariaLabel={'Bucket tool'}
+                            title={'Bucket tool'}
                         />
                         <Toolbutton
                             iconName={'PlainText'}
@@ -286,6 +313,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onTextClicked}
                             ariaLabel={'Text tool'}
+                            title={'Text tool'}
                         />
                         <Toolbutton
                             iconName={'BorderDash'}
@@ -295,6 +323,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                             }
                             onClick={onSelectClicked}
                             ariaLabel={'Selection tool'}
+                            title={'Selection tool'}
                         />
                     </Toolgroup>
                     <Toolgroup width={100}>
@@ -308,6 +337,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
                                 onZoomClicked(false);
                             }}
                             ariaLabel={'Zoom out tool'}
+                            title={'Zoom out tool'}
                         />
                         <Toolbutton
                             iconName={'ZoomIn'}
@@ -319,16 +349,19 @@ export const Toolbar: React.FC = (): JSX.Element => {
                                 onZoomClicked(true);
                             }}
                             ariaLabel={'Zoom in tool'}
+                            title={'Zoom in tool'}
                         />
                         <Toolbutton
                             iconName={'Undo'}
                             onClick={onUndo}
                             ariaLabel={'Undo'}
+                            title={'Undo'}
                         />
                         <Toolbutton
                             iconName={'Redo'}
                             onClick={onRedo}
                             ariaLabel={'Redo'}
+                            title={'Redo'}
                         />
                     </Toolgroup>
                 </div>
@@ -337,6 +370,12 @@ export const Toolbar: React.FC = (): JSX.Element => {
                         iconName={'Link'}
                         onClick={onCopyLink}
                         ariaLabel={'Copy link'}
+                        isDisabled={isImageStorageManagerDisabled}
+                        title={
+                            isImageStorageManagerDisabled
+                                ? disabledReason
+                                : 'Copy Link'
+                        }
                     />
                 </Toolgroup>
             </Stack>
