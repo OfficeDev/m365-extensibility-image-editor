@@ -209,12 +209,10 @@ export const OpenDialog: React.FC<Props> = ({ isVisible }): JSX.Element => {
                     >
                         {displayedImageEditorItems ? (
                             displayedImageEditorItems.length > 0 ? (
-                                <>
-                                    <List
-                                        items={displayedImageEditorItems}
-                                        onRenderCell={onRenderCell}
-                                    />
-                                </>
+                                <List
+                                    items={displayedImageEditorItems}
+                                    onRenderCell={onRenderCell}
+                                />
                             ) : (
                                 <Stack
                                     horizontalAlign="center"
