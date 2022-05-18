@@ -96,7 +96,7 @@ export type CanvasAction =
     | { type: 'setZoomPercentage'; value: number }
     | { type: 'setCanvasWidth'; value: number }
     | { type: 'setCanvasHeight'; value: number }
-    | { type: 'onNewCanvas' };
+    | { type: 'createNewCanvas' };
 
 export const CanvasReducer = (
     state: CanvasState,
@@ -162,7 +162,7 @@ export const CanvasReducer = (
         case 'setCanvasHeight':
             newState.canvasHeight = action.value;
             return newState;
-        case 'onNewCanvas':
+        case 'createNewCanvas':
             newState.imageEditorStorageManager &&
                 newState.imageEditorStorageManager.clearCurrentImageEditorItem();
             newState.canvasWidth =

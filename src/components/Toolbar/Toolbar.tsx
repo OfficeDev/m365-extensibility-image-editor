@@ -170,7 +170,7 @@ export const Toolbar: React.FC = (): JSX.Element => {
     const onNew = () => {
         canvasContext.dispatch &&
             canvasContext.dispatch({
-                type: 'onNewCanvas',
+                type: 'createNewCanvas',
             });
     };
 
