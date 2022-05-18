@@ -404,6 +404,7 @@ export const Canvas: React.FC = (): JSX.Element => {
             } else if (state.activeTool === ToolType.Text) {
                 if (inputTextRef.current) {
                     if (inputTextRef.current.value === '') {
+                        // show textarea for text input
                         typeStartPos.current =
                             getCoordinateForTextStartPosition(
                                 event,
@@ -432,7 +433,14 @@ export const Canvas: React.FC = (): JSX.Element => {
                             state.textSize / CANVAS_RESOLUTION_FACTOR
                         }px`;
                         inputTextRef.current.style.color = `#${state.textColor.hex}`;
+                        inputTextRef.current.focus();
+                        // we need to put this on the event loop and wait for browser paint to ocur first
+                        setTimeout(() => {
+                            document.getElementById('canvasTextArea')?.focus();
+                        }, 0);
                     } else {
+                        // user dismisses the text area, draw text onto canvas
+
                         // take care of linebreaks
                         const textArray =
                             inputTextRef.current.value.split(/\n\r?/g);
@@ -993,6 +1001,7 @@ export const Canvas: React.FC = (): JSX.Element => {
                         setImageDimensions={setImageDimensions}
                     />
                     <textarea
+                        id="canvasTextArea"
                         className={styles.textArea}
                         onMouseUp={onTextAreaMouseUp}
                         onMouseDown={onTextAreaMouseDown}
