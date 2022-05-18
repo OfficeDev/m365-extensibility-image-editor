@@ -64,7 +64,7 @@ For creating a test tenant see <https://docs.microsoft.com/en-us/office/develope
 
     - We need to set the new application id into the configs of the app code.
     - If have not done so, clone this repository.
-    - Go to <https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade> to see all of your App Registrations
+    - Go to <https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade> to see all of your app registrations
     - Click on the 'All applications'
     - Click on the entry of your **App Registration** made in step 2.
     - Take note of the application id from the overview tab of the app registration, this value should be a guid
