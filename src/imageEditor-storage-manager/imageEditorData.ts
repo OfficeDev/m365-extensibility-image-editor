@@ -150,7 +150,7 @@ export const getAllImageEditorItems = async (
         imageEditorFolder.id,
     );
 
-    if (!allImageEditorItems) {
+    if (!allImageEditorItems || allImageEditorItems.length === 0) {
         return [];
     }
 

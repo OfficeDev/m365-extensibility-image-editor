@@ -15,7 +15,7 @@ import { CANVAS_RESOLUTION_FACTOR } from '../../constants/ImageEditorAppConstant
 import { getImageEditorHistory } from '../../imageEditor-history/get-imageEditor-history';
 import { getImageEditorStorageManager } from '../../imageEditor-storage-manager/get-imageEditor-storage-manager';
 import { CanvasContext, ToolType } from '../CanvasContext/CanvasContext';
-import { ImageEditor } from '../ImageEditor/ImageEditor';
+import { SelectionEditor } from '../SelectionEditor/SelectionEditor';
 import { ServiceProviderContext } from '../ServiceProviderContext/ServiceProviderContext';
 import styles from './Canvas.module.scss';
 import { getCanvasPointerClass } from './Canvas.styles';
@@ -961,7 +961,7 @@ export const Canvas: React.FC = (): JSX.Element => {
                         width: state.canvasWidth / CANVAS_RESOLUTION_FACTOR,
                     }}
                 >
-                    <ImageEditor
+                    <SelectionEditor
                         imageLeft={imageLeft}
                         imageTop={imageTop}
                         imageSrc={imageSrc}

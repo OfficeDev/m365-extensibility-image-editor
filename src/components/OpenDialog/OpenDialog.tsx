@@ -5,6 +5,7 @@ import {
     IconButton,
     Image as FluentImage,
     ImageFit,
+    Label,
     List,
     Modal,
     Stack,
@@ -43,12 +44,17 @@ export const OpenDialog: React.FC<Props> = ({ isVisible }): JSX.Element => {
                 canvasContext.state.canvasPalette &&
                 canvasContext.state.imageEditorHistory
             ) {
-                canvasContext.state.imageEditorStorageManager
-                    .getAllItems()
-                    .then((items) => {
-                        setIsLoaded(true);
-                        setDisplayedImageEditorItems(items);
-                    });
+                try {
+                    canvasContext.state.imageEditorStorageManager
+                        .getAllItems()
+                        .then((items) => {
+                            console.log('loaded');
+                            setIsLoaded(true);
+                            setDisplayedImageEditorItems(items);
+                        });
+                } catch {
+                    setIsLoaded(true);
+                }
             }
         }
     }, [isVisible]);
@@ -148,7 +154,7 @@ export const OpenDialog: React.FC<Props> = ({ isVisible }): JSX.Element => {
         index: number | undefined,
         isScrolling: boolean | undefined,
     ): JSX.Element => {
-        if (!index) {
+        if (index === undefined) {
             return <></>;
         }
         return (
@@ -202,16 +208,27 @@ export const OpenDialog: React.FC<Props> = ({ isVisible }): JSX.Element => {
                         className={styles.listContainer}
                     >
                         {displayedImageEditorItems ? (
-                            <>
-                                <List
-                                    items={displayedImageEditorItems}
-                                    onRenderCell={onRenderCell}
-                                />
-                            </>
+                            displayedImageEditorItems.length > 0 ? (
+                                <>
+                                    <List
+                                        items={displayedImageEditorItems}
+                                        onRenderCell={onRenderCell}
+                                    />
+                                </>
+                            ) : (
+                                <Stack
+                                    horizontalAlign="center"
+                                    className={styles.centerLabelContainer}
+                                >
+                                    <Stack.Item>
+                                        <Label>Nothing to show</Label>
+                                    </Stack.Item>
+                                </Stack>
+                            )
                         ) : (
                             <Stack
                                 horizontalAlign="center"
-                                verticalAlign="center"
+                                className={styles.centerLabelContainer}
                             >
                                 <Stack.Item>
                                     <Text>Error loading items</Text>
