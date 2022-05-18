@@ -45,7 +45,7 @@ Alternatively use your own cert and domain name.
 
 ### Registering the Image Editor App and Setting Up Sign In
 
-In order to get Sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do the essential steps:
+In order to get Sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do these essential steps:
   
 1. **Create Test Tenant**
 For creating a test tenant see <https://docs.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started>
@@ -116,19 +116,19 @@ Please note that after enrolling your developer tenant for Office 365 Targeted r
 <https://www.office.com/>  
 <img src="https://user-images.githubusercontent.com/14112046/169156017-7f40ba34-74db-4004-8bd7-ebf4565b7a48.png" alt="drawing" width="600"/>
   
-**Access app on Outlook**
+**Access app on Outlook**  
 <https://www.outlook.com/>  
 <img src="https://user-images.githubusercontent.com/14112046/165680783-343d7408-88dc-4705-b085-0f6ec79c41ac.png" alt="drawing" width="800"/>
 
-For more information on the app manifest:  
-<https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema-dev-preview>
-
-For more information on the app SDK:  
-<https://docs.microsoft.com/en-us/javascript/api/overview/msteams-client?view=msteams-client-js-latest>
-
 For more information on extending your app across Microsoft 365:  
 <https://docs.microsoft.com/en-us/microsoftteams/platform/m365-apps/overview>
-
+  
+For more information on the app manifest:  
+<https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema-dev-preview>
+  
+For more information on the app SDK:  
+<https://docs.microsoft.com/en-us/javascript/api/overview/msteams-client?view=msteams-client-js-latest>
+  
 ### Build production
 
 Building minified production files  
