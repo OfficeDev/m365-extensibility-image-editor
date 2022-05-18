@@ -83,7 +83,12 @@ export const OpenDialog: React.FC<Props> = ({ isVisible }): JSX.Element => {
                         state.context.globalCompositeOperation;
                     state.context.globalCompositeOperation = 'source-over';
                     //draw background image
-                    state.context.clearRect(0, 0, 2000, 1200);
+                    state.context.clearRect(
+                        0,
+                        0,
+                        state.canvasWidth,
+                        state.canvasHeight,
+                    );
                     state.context.drawImage(img, 0, 0);
                     state.context.globalCompositeOperation =
                         previousGlobalCompositionOperation;
@@ -170,9 +175,10 @@ export const OpenDialog: React.FC<Props> = ({ isVisible }): JSX.Element => {
                 <Stack className={styles.deleteButton}>
                     <IconButton
                         iconProps={{ iconName: 'Delete' }}
-                        onClick={() => {
+                        onClick={(event) => {
                             displayedImageEditorItems &&
                                 onDeleteImage(displayedImageEditorItems[index]);
+                            event.stopPropagation();
                         }}
                     />
                 </Stack>

@@ -168,12 +168,10 @@ export const Toolbar: React.FC = (): JSX.Element => {
     };
 
     const onNew = () => {
-        if (canvasContext.state.context) {
-            canvasContext.state.context.clearRect(0, 0, 2000, 1200);
-        }
-        if (canvasContext.state.imageEditorStorageManager) {
-            canvasContext.state.imageEditorStorageManager.clearCurrentImageEditorItem();
-        }
+        canvasContext.dispatch &&
+            canvasContext.dispatch({
+                type: 'onNewCanvas',
+            });
     };
 
     const onSaveClicked = () => {
@@ -181,9 +179,8 @@ export const Toolbar: React.FC = (): JSX.Element => {
             dialogsContext.dispatch({ type: 'toggleSaveDialog' });
     };
 
-    const isImageStorageManagerDisabled = Boolean(
-        canvasContext.state.imageEditorStorageManager,
-    );
+    const isImageStorageManagerDisabled =
+        !canvasContext.state.imageEditorStorageManager;
 
     const disabledReason = 'Functionality disabled without sign in';
 
