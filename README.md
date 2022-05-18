@@ -43,14 +43,14 @@ Dev server will run on <https://localhost:8080> by default.
 Ignore and skip unsafe localhost (no localhost cert) in the browser for development.
 Alternatively use your own cert and domain name.
 
-### Registering the Image Editor App and Setting Up Sign In
+### Registering the App and Setting Up Sign In
 
 In order to get Sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do these essential steps:
   
 1. **Create Test Tenant**
 For creating a test tenant see <https://docs.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started>
 
-2. **Register the app as an Enterprise Application**
+2. **Register the App as an Enterprise Application**
 
     - Get credentials for the admin of your test tenant
     - Go to <https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade>
