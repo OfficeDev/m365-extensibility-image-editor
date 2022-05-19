@@ -43,14 +43,14 @@ Dev server will run on <https://localhost:8080> by default.
 Ignore and skip unsafe localhost (no localhost cert) in the browser for development.
 Alternatively use your own cert and domain name.
 
-### Registering the App and Setting Up Sign In
+### Registering the app and setting up sign in
 
-In order to get Sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do these essential steps:
+In order to get sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do these essential steps:
   
-1. **Create Test Tenant**
+1. **Create test tenant**
 For creating a test tenant see <https://docs.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started>
 
-2. **Register the App as an Enterprise Application**
+2. **Register the app as an enterprise application**
 
     - Get credentials for the admin of your test tenant
     - Go to <https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade>
@@ -60,7 +60,7 @@ For creating a test tenant see <https://docs.microsoft.com/en-us/office/develope
     - **Redirect URI** - Field1: "Single-page application (SPA)" Field2 (host src): "https://localhost:8080/"
     - Click Register
 
-3. **Changing App Configs**
+3. **Changing app configs**
 
     - We need to set the new application id into the configs of the app code.
     - If have not done so, clone this repository.
@@ -72,9 +72,9 @@ For creating a test tenant see <https://docs.microsoft.com/en-us/office/develope
     - in '.env.dev' file, change APP_ID field to the application id you obtained above.
     - in '.env.prod' file, change APP_ID field to the application id you obtained above.
 
-4. **Applying Admin Approvals**
-    - We need to, as an admin, give consent to the Image Editor app to access the tenant's resources and services.
-    - Go to the base of the repo and run 'yarn start' to start the Image Editor app.
+4. **Applying admin approvals**
+    - We need to, as an admin, give consent to the app to access the tenant's resources and services.
+    - Go to the base of the repo and run `yarn start` to start the Image Editor app.
     - Attempt to sign in with the admin credentials for the tenant you created.
     - Permision Requested: As the admin, check the 'Consent on behalf of your organization' and click Accept. (another dialog to request the same consent may show up).
     - Now on the App you should see an error: 'Loading error: Error in loadDataStore, innerError: Error in mountDefaultPod, innerError: Unable to retrieve user's OneDrive domain.' You have to grant permission to Onedrive (through the graph api). To do this...
@@ -90,7 +90,7 @@ For creating a test tenant see <https://docs.microsoft.com/en-us/office/develope
     - You may need to refresh and login again to find it has succeeded.
     - Now you can sign in to the Image Editor app.
 
-### Running Across Microsoft 365 (Office.com, Outlook, and Teams)
+### Running across Microsoft 365 (Office.com, Outlook, and Teams)
 
 Within Microsoft Teams, a user can upload a 'manifest file' (config file) that is then read by the other Microsoft host apps (Outlook, Office), to host the Image Editor app within their experiences - giving the user access to the app in all three locations.
   
