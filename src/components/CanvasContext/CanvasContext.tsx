@@ -5,6 +5,7 @@ import { getColorFromString, IColor } from '@fluentui/react';
 import { createContext } from 'react';
 
 import { CanvasPalette } from '../../canvas-palette/canvas-palette';
+import { CANVAS_RESOLUTION_FACTOR } from '../../constants/ImageEditorAppConstants';
 import { ImageEditorHistory } from '../../imageEditor-history/get-imageEditor-history';
 import { ImageEditorStorageManager } from '../../imageEditor-storage-manager/get-imageEditor-storage-manager';
 
@@ -28,6 +29,9 @@ export enum ToolType {
     ZoomOut,
 }
 
+const DEFAULT_CANVAS_HEIGHT = 600;
+const DEFAULT_CANVAS_WIDTH = 1000;
+
 export const initialCanvasState: CanvasState = {
     brushSize: 2,
     highlighterSize: 20,
@@ -40,6 +44,8 @@ export const initialCanvasState: CanvasState = {
     textSize: 44,
     textColor: getColorFromString('#000000')!,
     zoomPercentage: 100,
+    canvasWidth: DEFAULT_CANVAS_WIDTH * CANVAS_RESOLUTION_FACTOR,
+    canvasHeight: DEFAULT_CANVAS_HEIGHT * CANVAS_RESOLUTION_FACTOR,
 };
 
 /**
@@ -66,6 +72,8 @@ export type CanvasState = {
     textSize: number;
     textColor: IColor;
     zoomPercentage: number;
+    canvasWidth: number;
+    canvasHeight: number;
 };
 
 export type CanvasAction =
@@ -85,7 +93,10 @@ export type CanvasAction =
     | { type: 'setCanvasPalette'; value: CanvasPalette }
     | { type: 'setTextSize'; value: number }
     | { type: 'setTextFont'; value: string }
-    | { type: 'setZoomPercentage'; value: number };
+    | { type: 'setZoomPercentage'; value: number }
+    | { type: 'setCanvasWidth'; value: number }
+    | { type: 'setCanvasHeight'; value: number }
+    | { type: 'createNewCanvas' };
 
 export const CanvasReducer = (
     state: CanvasState,
@@ -144,6 +155,20 @@ export const CanvasReducer = (
             return newState;
         case 'setZoomPercentage':
             newState.zoomPercentage = action.value;
+            return newState;
+        case 'setCanvasWidth':
+            newState.canvasWidth = action.value;
+            return newState;
+        case 'setCanvasHeight':
+            newState.canvasHeight = action.value;
+            return newState;
+        case 'createNewCanvas':
+            newState.imageEditorStorageManager &&
+                newState.imageEditorStorageManager.clearCurrentImageEditorItem();
+            newState.canvasWidth =
+                DEFAULT_CANVAS_WIDTH * CANVAS_RESOLUTION_FACTOR;
+            newState.canvasHeight =
+                DEFAULT_CANVAS_HEIGHT * CANVAS_RESOLUTION_FACTOR;
             return newState;
         default:
             throw new Error('Invalid action type.');

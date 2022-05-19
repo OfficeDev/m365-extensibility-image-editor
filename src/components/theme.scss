@@ -20,6 +20,7 @@
         --buttonBorderActive: black;
         --optionPaneBackground: #f5f6f7;
         --textColor: #323130;
+        --toolButtonColorDisabled: #d8d8d8;
     }
 
     // dark mode theme
@@ -33,6 +34,7 @@
         --buttonBorderActive: white;
         --optionPaneBackground: #282828;
         --textColor: white;
+        --toolButtonColorDisabled: #d8d8d8;
     }
 
     // high contrast theme
@@ -46,5 +48,6 @@
         --buttonBorderActive: #1aebff;
         --optionPaneBackground: black;
         --textColor: white;
+        --toolButtonColorDisabled: black;
     }
 }

@@ -11,10 +11,11 @@ import {
 } from 'react';
 
 import { getCanvasPalette } from '../../canvas-palette/canvas-palette';
+import { CANVAS_RESOLUTION_FACTOR } from '../../constants/ImageEditorAppConstants';
 import { getImageEditorHistory } from '../../imageEditor-history/get-imageEditor-history';
 import { getImageEditorStorageManager } from '../../imageEditor-storage-manager/get-imageEditor-storage-manager';
 import { CanvasContext, ToolType } from '../CanvasContext/CanvasContext';
-import { ImageEditor } from '../ImageEditor/ImageEditor';
+import { SelectionEditor } from '../SelectionEditor/SelectionEditor';
 import { ServiceProviderContext } from '../ServiceProviderContext/ServiceProviderContext';
 import styles from './Canvas.module.scss';
 import { getCanvasPointerClass } from './Canvas.styles';
@@ -37,10 +38,6 @@ import {
  */
 export const Canvas: React.FC = (): JSX.Element => {
     const IMAGE_DRAG_SPEED_FACTOR = 0.6;
-    // Determines canvas revolution, higher the number the more pixel density there is
-    const CANVAS_RESOLUTION_FACTOR = 2;
-    const DEFAULT_CANVAS_HEIGHT = 600;
-    const DEFAULT_CANVAS_WIDTH = 1000;
 
     // Get Graph and Canvas Context states
     const { state, dispatch } = useContext(CanvasContext);
@@ -52,8 +49,6 @@ export const Canvas: React.FC = (): JSX.Element => {
     const canvasContainerRef = createRef<HTMLDivElement>();
     const inputTextRef = createRef<HTMLTextAreaElement>();
 
-    const [canvasContainerState, setCanvasContainerState] =
-        useState<HTMLDivElement>();
     const imageRefPlot = createRef<HTMLImageElement>();
     const indicatorLayerRef = createRef<HTMLCanvasElement>();
     const indicatorLayerContext = useRef<CanvasRenderingContext2D>();
@@ -76,14 +71,6 @@ export const Canvas: React.FC = (): JSX.Element => {
         h: 0,
     });
 
-    // Init canvas states
-    // Changes in these variables will cause canvas to rerender
-    const [canvasHeight, setCanvasHeight] = useState(
-        DEFAULT_CANVAS_HEIGHT * CANVAS_RESOLUTION_FACTOR,
-    );
-    const [canvasWidth, setCanvasWidth] = useState(
-        DEFAULT_CANVAS_WIDTH * CANVAS_RESOLUTION_FACTOR,
-    );
     const [imageTop, setImageTop] = useState(0);
     const [imageLeft, setImageLeft] = useState(0);
     const [isMoving, setIsMoving] = useState(false);
@@ -101,9 +88,6 @@ export const Canvas: React.FC = (): JSX.Element => {
 
     // Use Effect setup and initiation code, runs once
     useEffect(() => {
-        if (canvasContainerRef.current) {
-            setCanvasContainerState(canvasContainerRef.current);
-        }
         if (dispatch) {
             const canvas = canvasRef.current;
             const canvasContext = canvas?.getContext('2d') ?? undefined;
@@ -150,25 +134,31 @@ export const Canvas: React.FC = (): JSX.Element => {
         }
     }, []);
 
-    // Code to run after crop (change to canvas size)
     useEffect(() => {
-        if (imageRefPlot.current && state.context) {
-            canvasRef.current
-                ?.getContext('2d')
-                ?.drawImage(
-                    imageRefPlot.current,
-                    0,
-                    0,
-                    imageWidth * CANVAS_RESOLUTION_FACTOR,
-                    imageHeight * CANVAS_RESOLUTION_FACTOR,
-                    0,
-                    0,
-                    imageWidth * CANVAS_RESOLUTION_FACTOR,
-                    imageHeight * CANVAS_RESOLUTION_FACTOR,
-                );
+        if (imageRefPlot.current && isImageEditing) {
+            // run after crop (change to canvas size)
+            state.context?.drawImage(
+                imageRefPlot.current,
+                0,
+                0,
+                imageWidth * CANVAS_RESOLUTION_FACTOR,
+                imageHeight * CANVAS_RESOLUTION_FACTOR,
+                0,
+                0,
+                imageWidth * CANVAS_RESOLUTION_FACTOR,
+                imageHeight * CANVAS_RESOLUTION_FACTOR,
+            );
+        } else {
+            // run after a new image canvas was created
+            state.context?.clearRect(
+                0,
+                0,
+                state.canvasHeight,
+                state.canvasWidth,
+            );
         }
         setIsImageEditing(false);
-    }, [canvasWidth, canvasHeight]);
+    }, [state.canvasHeight, state.canvasWidth]);
 
     //
     // CALLBACKS
@@ -180,8 +170,16 @@ export const Canvas: React.FC = (): JSX.Element => {
     const onCropCanvas = useCallback(() => {
         setImageTop(0);
         setImageLeft(0);
-        setCanvasHeight(imageHeight * CANVAS_RESOLUTION_FACTOR);
-        setCanvasWidth(imageWidth * CANVAS_RESOLUTION_FACTOR);
+        dispatch &&
+            dispatch({
+                type: 'setCanvasWidth',
+                value: imageWidth * CANVAS_RESOLUTION_FACTOR,
+            });
+        dispatch &&
+            dispatch({
+                type: 'setCanvasHeight',
+                value: imageHeight * CANVAS_RESOLUTION_FACTOR,
+            });
     }, [imageWidth, imageHeight]);
 
     const onImageEditingStateChange = useCallback((isImageEditing: boolean) => {
@@ -292,8 +290,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                         event,
                         boundings?.current,
                         state.zoomPercentage,
-                        canvasContainerState?.scrollTop ?? 0,
-                        canvasContainerState?.scrollLeft ?? 0,
+                        canvasContainerRef.current?.scrollTop ?? 0,
+                        canvasContainerRef.current?.scrollLeft ?? 0,
                         inputTextRef.current,
                     );
                     typeEndPos.current = getCoordinateForTextEndPosition(
@@ -301,8 +299,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                         boundings?.current,
                         state.textSize,
                         state.zoomPercentage,
-                        canvasContainerState?.scrollTop ?? 0,
-                        canvasContainerState?.scrollLeft ?? 0,
+                        canvasContainerRef.current?.scrollTop ?? 0,
+                        canvasContainerRef.current?.scrollLeft ?? 0,
                         inputTextRef.current,
                     );
                     inputTextRef.current.style.left = `${typeStartPos.current.x}px`;
@@ -315,13 +313,17 @@ export const Canvas: React.FC = (): JSX.Element => {
             isDraggingTextArea,
             state.zoomPercentage,
             state.textSize,
-            canvasContainerState,
+            canvasContainerRef.current,
         ],
     );
 
     const onMouseDown = useCallback(
         (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-            if (!boundings.current || !state.context || !canvasContainerState) {
+            if (
+                !boundings.current ||
+                !state.context ||
+                !canvasContainerRef.current
+            ) {
                 return;
             }
             if (state.imageEditorHistory) {
@@ -382,12 +384,12 @@ export const Canvas: React.FC = (): JSX.Element => {
                         event,
                         boundings.current,
                         state.zoomPercentage,
-                        canvasContainerState.scrollTop,
-                        canvasContainerState.scrollLeft,
+                        canvasContainerRef.current.scrollTop,
+                        canvasContainerRef.current.scrollLeft,
                     ),
                     state.context,
-                    canvasWidth,
-                    canvasHeight,
+                    state.canvasWidth,
+                    state.canvasHeight,
                     state.fillColor,
                 );
             } else if (
@@ -402,13 +404,14 @@ export const Canvas: React.FC = (): JSX.Element => {
             } else if (state.activeTool === ToolType.Text) {
                 if (inputTextRef.current) {
                     if (inputTextRef.current.value === '') {
+                        // show textarea for text input
                         typeStartPos.current =
                             getCoordinateForTextStartPosition(
                                 event,
                                 boundings.current,
                                 state.zoomPercentage,
-                                canvasContainerState?.scrollTop ?? 0,
-                                canvasContainerState?.scrollLeft ?? 0,
+                                canvasContainerRef.current?.scrollTop ?? 0,
+                                canvasContainerRef.current?.scrollLeft ?? 0,
                                 inputTextRef.current,
                             );
 
@@ -417,8 +420,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                             boundings.current,
                             state.textSize,
                             state.zoomPercentage,
-                            canvasContainerState?.scrollTop ?? 0,
-                            canvasContainerState?.scrollLeft ?? 0,
+                            canvasContainerRef.current?.scrollTop ?? 0,
+                            canvasContainerRef.current?.scrollLeft ?? 0,
                             inputTextRef.current,
                         );
 
@@ -430,7 +433,14 @@ export const Canvas: React.FC = (): JSX.Element => {
                             state.textSize / CANVAS_RESOLUTION_FACTOR
                         }px`;
                         inputTextRef.current.style.color = `#${state.textColor.hex}`;
+                        inputTextRef.current.focus();
+                        // we need to put this on the event loop and wait for browser paint to ocur first
+                        setTimeout(() => {
+                            document.getElementById('canvasTextArea')?.focus();
+                        }, 0);
                     } else {
+                        // user dismisses the text area, draw text onto canvas
+
                         // take care of linebreaks
                         const textArray =
                             inputTextRef.current.value.split(/\n\r?/g);
@@ -461,8 +471,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                     event,
                     boundings.current,
                     state.zoomPercentage,
-                    canvasContainerState.scrollTop,
-                    canvasContainerState.scrollLeft,
+                    canvasContainerRef.current.scrollTop,
+                    canvasContainerRef.current.scrollLeft,
                 );
                 selectionToolDimensions.current.x = coords.x;
                 selectionToolDimensions.current.y = coords.y;
@@ -493,15 +503,15 @@ export const Canvas: React.FC = (): JSX.Element => {
         [
             state,
             boundings,
-            canvasContainerState,
+            canvasContainerRef.current,
             isImageEditing,
             imageRefPlot,
             imageLeft,
             imageTop,
             imageWidth,
             imageHeight,
-            canvasHeight,
-            canvasWidth,
+            state.canvasHeight,
+            state.canvasWidth,
             dispatch,
         ],
     );
@@ -509,13 +519,13 @@ export const Canvas: React.FC = (): JSX.Element => {
     const onMouseMove = useCallback(
         (event: React.MouseEvent<Element, MouseEvent>) => {
             // Get new mouse position
-            if (boundings.current && canvasContainerState && state) {
+            if (boundings.current && canvasContainerRef.current && state) {
                 mousePos.current = getMouseCoordinate(
                     event,
                     boundings.current,
                     state.zoomPercentage,
-                    canvasContainerState.scrollTop,
-                    canvasContainerState.scrollLeft,
+                    canvasContainerRef.current.scrollTop,
+                    canvasContainerRef.current.scrollLeft,
                 );
             }
 
@@ -544,8 +554,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                     indicatorLayerContext.current.clearRect(
                         0,
                         0,
-                        canvasWidth,
-                        canvasHeight,
+                        state.canvasWidth,
+                        state.canvasHeight,
                     );
                 }
                 // Shape tool
@@ -644,7 +654,12 @@ export const Canvas: React.FC = (): JSX.Element => {
                         const ctx =
                             indicatorLayerRef?.current?.getContext('2d');
                         if (ctx) {
-                            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+                            ctx.clearRect(
+                                0,
+                                0,
+                                state.canvasWidth,
+                                state.canvasHeight,
+                            );
                             ctx.setLineDash([6]);
                             ctx.strokeRect(
                                 selectionToolDimensions.current.x,
@@ -658,15 +673,15 @@ export const Canvas: React.FC = (): JSX.Element => {
             }
         },
         [
-            canvasContainerState,
+            canvasContainerRef.current,
             state,
             isMoving,
             isResizing,
             onImageEditorMouseMove,
             onResizeMouseMove,
             indicatorLayerRef,
-            canvasWidth,
-            canvasHeight,
+            state.canvasWidth,
+            state.canvasHeight,
         ],
     );
 
@@ -744,8 +759,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                             indicatorCtx.clearRect(
                                 0,
                                 0,
-                                canvasWidth,
-                                canvasHeight,
+                                state.canvasWidth,
+                                state.canvasHeight,
                             );
                             indicatorCtx.drawImage(
                                 canvasRef.current,
@@ -770,8 +785,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                             indicatorCtx.clearRect(
                                 0,
                                 0,
-                                canvasWidth,
-                                canvasHeight,
+                                state.canvasWidth,
+                                state.canvasHeight,
                             );
                             canvasRef.current
                                 .getContext('2d')
@@ -797,8 +812,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                             setImageSrc(canvasImageUrl);
                             setIsImageEditing(true);
                         }
-                        indicatorLayerRef.current.width = canvasWidth;
-                        indicatorLayerRef.current.height = canvasHeight;
+                        indicatorLayerRef.current.width = state.canvasWidth;
+                        indicatorLayerRef.current.height = state.canvasHeight;
                         showContextualMenu();
                     }
                 }
@@ -834,8 +849,8 @@ export const Canvas: React.FC = (): JSX.Element => {
             onResizeMouseUp,
             canvasRef,
             indicatorLayerRef,
-            canvasWidth,
-            canvasHeight,
+            state.canvasWidth,
+            state.canvasHeight,
             showContextualMenu,
             setImageDimensions,
         ],
@@ -950,11 +965,11 @@ export const Canvas: React.FC = (): JSX.Element => {
                 <div
                     className={styles.canvasContainer}
                     style={{
-                        height: canvasHeight / CANVAS_RESOLUTION_FACTOR,
-                        width: canvasWidth / CANVAS_RESOLUTION_FACTOR,
+                        height: state.canvasHeight / CANVAS_RESOLUTION_FACTOR,
+                        width: state.canvasWidth / CANVAS_RESOLUTION_FACTOR,
                     }}
                 >
-                    <ImageEditor
+                    <SelectionEditor
                         imageLeft={imageLeft}
                         imageTop={imageTop}
                         imageSrc={imageSrc}
@@ -986,7 +1001,8 @@ export const Canvas: React.FC = (): JSX.Element => {
                         setImageDimensions={setImageDimensions}
                     />
                     <textarea
-                        className={styles.input}
+                        id="canvasTextArea"
+                        className={styles.textArea}
                         onMouseUp={onTextAreaMouseUp}
                         onMouseDown={onTextAreaMouseDown}
                         onMouseMove={onTextAreaMove}
@@ -997,11 +1013,12 @@ export const Canvas: React.FC = (): JSX.Element => {
                     <canvas
                         id="indicatorLayer"
                         style={{
-                            width: canvasWidth / CANVAS_RESOLUTION_FACTOR,
-                            height: canvasHeight / CANVAS_RESOLUTION_FACTOR,
+                            width: state.canvasWidth / CANVAS_RESOLUTION_FACTOR,
+                            height:
+                                state.canvasHeight / CANVAS_RESOLUTION_FACTOR,
                         }}
-                        width={canvasWidth}
-                        height={canvasHeight}
+                        width={state.canvasWidth}
+                        height={state.canvasHeight}
                         ref={indicatorLayerRef}
                         className={`${
                             styles.indicatorLayer
@@ -1021,11 +1038,12 @@ export const Canvas: React.FC = (): JSX.Element => {
                     <canvas
                         id="imageEditor-canvas"
                         style={{
-                            width: canvasWidth / CANVAS_RESOLUTION_FACTOR,
-                            height: canvasHeight / CANVAS_RESOLUTION_FACTOR,
+                            width: state.canvasWidth / CANVAS_RESOLUTION_FACTOR,
+                            height:
+                                state.canvasHeight / CANVAS_RESOLUTION_FACTOR,
                         }}
-                        width={canvasWidth}
-                        height={canvasHeight}
+                        width={state.canvasWidth}
+                        height={state.canvasHeight}
                         className={styles.canvas}
                         ref={canvasRef}
                     />

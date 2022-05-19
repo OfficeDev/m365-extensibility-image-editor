@@ -7,3 +7,5 @@ export const AppId = typeof APP_ID !== 'undefined' ? APP_ID : '';
 // Retrieve Graph scopes from env variables defined in .env files
 export const graphScopes =
     typeof GRAPH_SCOPES !== 'undefined' ? GRAPH_SCOPES : [];
+
+export const CANVAS_RESOLUTION_FACTOR = 2;

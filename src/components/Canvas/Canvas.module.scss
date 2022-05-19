@@ -6,14 +6,17 @@
     box-shadow: 5px 5px 5px var(--canvasDropShadow);
     line-height: 100%;
 }
+
 .image {
     position: absolute;
     z-index: 20;
 }
+
 .indicatorLayer {
     position: absolute;
     z-index: 10;
 }
+
 .canvasFlexContainer {
     display: flex;
     height: calc(100vh - 100px);
@@ -28,14 +31,17 @@
         background: #858585;
     }
 }
+
 .canvasContainer {
     position: relative;
 }
-.input {
+
+.textArea {
     position: absolute;
     display: none;
     width: 200px;
     height: 100px;
     z-index: 20;
     resize: both;
+    background: transparent;
 }

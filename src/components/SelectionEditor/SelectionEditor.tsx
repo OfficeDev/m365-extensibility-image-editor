@@ -4,7 +4,7 @@
 import { createRef, MouseEventHandler, useCallback, useState } from 'react';
 
 import { SelectMenu } from '../SelectMenu/SelectMenu';
-import styles from './ImageEditor.module.scss';
+import styles from './SelectionEditor.module.scss';
 
 type Props = {
     imageSrc: string;
@@ -29,7 +29,7 @@ type Props = {
     setImageDimensions: (width: number, height: number) => void;
 };
 
-export const ImageEditor: React.FC<Props> = ({
+export const SelectionEditor: React.FC<Props> = ({
     imageSrc,
     isImageEditing,
     width,
