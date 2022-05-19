@@ -92,7 +92,7 @@ For creating a test tenant see <https://docs.microsoft.com/en-us/office/develope
 
 ### Running across Microsoft 365 (Office.com, Outlook, and Teams)
 
-Within Microsoft Teams, a user can upload a 'manifest file' (config file) that is then read by the other Microsoft host apps (Outlook, Office), to host the Image Editor app within their experiences - giving the user access to the app in all three locations.
+Within Microsoft Teams, a user can upload a 'manifest file' (json config file) that is then read by the other Microsoft host apps (Outlook, Office), to host the Image Editor app within their experiences - giving the user access to the app in all three locations.
   
 1. run `yarn start`
 2. edit manifest file **configs\hosts\manifest.json** so the id property value matches the app registration you set up above.
