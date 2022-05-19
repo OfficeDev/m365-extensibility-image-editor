@@ -37,8 +37,6 @@ import {
  * Place all canvas painting operations here
  */
 export const Canvas: React.FC = (): JSX.Element => {
-    const IMAGE_DRAG_SPEED_FACTOR = 0.6;
-
     // Get Graph and Canvas Context states
     const { state, dispatch } = useContext(CanvasContext);
     const { graphClient } = useContext(ServiceProviderContext);
@@ -221,17 +219,15 @@ export const Canvas: React.FC = (): JSX.Element => {
         (event: React.MouseEvent<Element, MouseEvent>) => {
             if (isMoving) {
                 setImageTop(
-                    imageTop + event.movementY * IMAGE_DRAG_SPEED_FACTOR,
+                    imageTop + event.movementY / (state.zoomPercentage / 100),
                 );
                 setImageLeft(
-                    imageLeft + event.movementX * IMAGE_DRAG_SPEED_FACTOR,
+                    imageLeft + event.movementX / (state.zoomPercentage / 100),
                 );
                 selectionToolDimensions.current.y =
-                    (imageTop + event.movementY * IMAGE_DRAG_SPEED_FACTOR) *
-                    CANVAS_RESOLUTION_FACTOR;
+                    (imageTop + event.movementY) * CANVAS_RESOLUTION_FACTOR;
                 selectionToolDimensions.current.x =
-                    (imageLeft + event.movementX * IMAGE_DRAG_SPEED_FACTOR) *
-                    CANVAS_RESOLUTION_FACTOR;
+                    (imageLeft + event.movementX) * CANVAS_RESOLUTION_FACTOR;
             }
             if (isResizing) {
                 onResizeMouseMove(event);
@@ -858,10 +854,10 @@ export const Canvas: React.FC = (): JSX.Element => {
 
     const onMouseOut = useCallback(
         (_event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-            isDrawing.current = false;
-            if (state.imageEditorHistory) {
+            if (state.imageEditorHistory && isDrawing.current) {
                 state.imageEditorHistory.imageEditorHistoryHooks.onMouseUp();
             }
+            isDrawing.current = false;
         },
         [state, isDrawing],
     );
