@@ -6,7 +6,7 @@
 [![webpack](https://badges.aleen42.com/src/webpack.svg)](https://github.com/webpack/webpack)
 [![react](https://badges.aleen42.com/src/react.svg)](https://github.com/facebook/react)
 
-Image Editor is a web app that runs on the Office 365 platform on multiple host apps (Teams, Office, Outlook). The app allows users to edit, save, open, and save images, using Microsoft Graph API. And the platform enables the user to access and use the app within any of the host apps.
+Image Editor is a web app that runs on the Office 365 platform on multiple host apps (Teams, Office, Outlook). The app allows users to edit, save, open, and save images, using Microsoft Graph API. 
 
 Use this project as a template to create your own web app that can be used in all three Microsoft host apps.
 
