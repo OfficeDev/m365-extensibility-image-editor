@@ -6,7 +6,7 @@
 [![webpack](https://badges.aleen42.com/src/webpack.svg)](https://github.com/webpack/webpack)
 [![react](https://badges.aleen42.com/src/react.svg)](https://github.com/facebook/react)
 
-Image Editor is a web app built on a host apps platform (host apps = Teams, Office, Outlook). The app allows users to edit, save, open, and save images, using Microsoft Graph API. And the platform enables the user to access and use the app within any of the host apps.
+Image Editor is a web app that runs on the Office 365 platform on multiple host apps (Teams, Office, Outlook). The app allows users to edit, save, open, and save images, using Microsoft Graph API. And the platform enables the user to access and use the app within any of the host apps.
 
 Use this project as a template to create your own web app that can be used in all three Microsoft host apps.
 
@@ -43,14 +43,14 @@ Dev server will run on <https://localhost:8080> by default.
 Ignore and skip unsafe localhost (no localhost cert) in the browser for development.
 Alternatively use your own cert and domain name.
 
-### Registering the Image Editor App and Setting Up Sign In
+### Registering the App and Setting Up Sign In
 
 In order to get Sign in with MSAL working for the Image Editor app (to get Microsoft Graph API functioning), you have to do these essential steps:
   
 1. **Create Test Tenant**
 For creating a test tenant see <https://docs.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program-get-started>
 
-2. **Register the app as an Enterprise Application**
+2. **Register the App as an Enterprise Application**
 
     - Get credentials for the admin of your test tenant
     - Go to <https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade>
@@ -95,7 +95,7 @@ For creating a test tenant see <https://docs.microsoft.com/en-us/office/develope
 Within Microsoft Teams, a user can upload a 'manifest file' (config file) that is then read by the other Microsoft host apps (Outlook, Office), to host the Image Editor app within their experiences - giving the user access to the app in all three locations.
   
 1. run `yarn start`
-2. edit manifest file `**configs\hosts\manifest.json**` so the id property value matches the app registration you set up above.
+2. edit manifest file **configs\hosts\manifest.json** so the id property value matches the app registration you set up above.
 3. Set a list of valid domains under 'validDomains', which accepts an array with type string
 4. zip all files in the **configs\hosts** folder (do not zip the folder itself, just the contents)
 5. go to <https://dev.teams.microsoft.com/apps> and click **Import App** to upload the .zip file.
