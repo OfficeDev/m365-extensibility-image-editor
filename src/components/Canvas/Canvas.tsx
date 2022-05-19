@@ -858,10 +858,10 @@ export const Canvas: React.FC = (): JSX.Element => {
 
     const onMouseOut = useCallback(
         (_event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-            isDrawing.current = false;
-            if (state.imageEditorHistory) {
+            if (state.imageEditorHistory && isDrawing.current) {
                 state.imageEditorHistory.imageEditorHistoryHooks.onMouseUp();
             }
+            isDrawing.current = false;
         },
         [state, isDrawing],
     );
