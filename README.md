@@ -1,6 +1,5 @@
 # Image Editor
 
-[![Build Status](https://office.visualstudio.com/OC/_apis/build/status/m365-extensibility-image-editor%20PR?branchName=main)](https://github.com/OfficeDev/m365-extensibility-image-editor)
 ![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 [![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)](https://github.com/microsoft/TypeScript)
 [![webpack](https://badges.aleen42.com/src/webpack.svg)](https://github.com/webpack/webpack)
