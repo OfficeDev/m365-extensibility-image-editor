@@ -445,6 +445,7 @@ export const Canvas: React.FC = (): JSX.Element => {
                         state.context.fillStyle = `#${state.textColor.hex}`;
                         const textboxXPadding = 6;
                         const textboxYPadding = 2;
+                        const lineSpacing = 6;
                         textArray.forEach((r, index) => {
                             state.context &&
                                 state.context.fillText(
@@ -452,7 +453,7 @@ export const Canvas: React.FC = (): JSX.Element => {
                                     typeEndPos.current.x + textboxXPadding,
                                     typeEndPos.current.y +
                                         textboxYPadding +
-                                        index * state.textSize,
+                                        index * (state.textSize + lineSpacing),
                                 );
                         });
 
