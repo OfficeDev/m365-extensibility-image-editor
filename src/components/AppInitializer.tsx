@@ -41,6 +41,7 @@ type LoadingStateContainer =
           state: LoadingState.Loaded;
           authProvider?: ImageEditorAuthProvider;
           graph?: Client;
+          isHosted?: boolean;
       }
     | {
           state: LoadingState.Error;
@@ -126,11 +127,12 @@ const AppInitializer: React.FC = (): JSX.Element => {
         };
 
         const loadAsync = async (authProvider: ImageEditorAuthProvider) => {
+            let isHosted = false;
             try {
+                // await initialize before any other sdk calls
                 await app.initialize();
                 initializeTheme();
-                app.notifyAppLoaded();
-                app.notifySuccess();
+                isHosted = true;
             } catch {
                 // Not hosted
                 console.log('App is not hosted in a host application');
@@ -142,6 +144,7 @@ const AppInitializer: React.FC = (): JSX.Element => {
                     state: LoadingState.Loaded,
                     authProvider: authProvider,
                     graph: graphService,
+                    isHosted: isHosted,
                 });
             } catch (error) {
                 if (error instanceof Error) {
@@ -160,6 +163,12 @@ const AppInitializer: React.FC = (): JSX.Element => {
                 break;
             case LoadingState.Loading:
                 loadAsync(loadingState.authProvider);
+                break;
+            case LoadingState.Loaded:
+                if (loadingState.isHosted) {
+                    app.notifyAppLoaded();
+                    app.notifySuccess();
+                }
                 break;
         }
     }, [loadingState]);
