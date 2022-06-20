@@ -6,11 +6,7 @@ import {
     AuthProviderCallback,
     Client,
 } from '@microsoft/microsoft-graph-client';
-import {
-    appInitialization,
-    getContext,
-    registerOnThemeChangeHandler,
-} from '@microsoft/teams-js';
+import { app } from '@microsoft/teams-js';
 import { useEffect, useState } from 'react';
 
 import { createAuthProvider, ImageEditorAuthProvider } from '../auth/auth';
@@ -96,11 +92,52 @@ const AppInitializer: React.FC = (): JSX.Element => {
             }
         };
 
+        // Set theme
+        const initializeTheme = async () => {
+            // allow theme overrides with search params
+            new URL(location.href).searchParams.get('theme');
+            const params = new URL(location.href).searchParams;
+            const themeOverride = params.get('theme');
+            // sdk theme strings include 'light', 'dark', and 'contrast'
+            // use these strings and this callback to set the theme on your app
+            // to test these changes, switch the theme in a hosted app like teams, in app settings
+            const handleThemeChange = (theme: string) => {
+                switch (theme) {
+                    case 'dark':
+                        setTheme('dark-theme');
+                        break;
+                    case 'contrast':
+                        setTheme('high-contrast-theme');
+                        break;
+                    // light theme
+                    default:
+                        setTheme('light-theme');
+                        break;
+                }
+            };
+            if (themeOverride) {
+                handleThemeChange(themeOverride);
+            } else {
+                // get theme from SDK
+                const context = await app.getContext();
+                app.registerOnThemeChangeHandler(handleThemeChange);
+                context.app.theme && handleThemeChange(context.app.theme);
+            }
+        };
+
         const loadAsync = async (authProvider: ImageEditorAuthProvider) => {
             try {
+                await app.initialize();
+                initializeTheme();
+                app.notifyAppLoaded();
+                app.notifySuccess();
+            } catch {
+                // Not hosted
+                console.log('App is not hosted in a host application');
+            }
+
+            try {
                 const graphService = await initGraphAsync(authProvider);
-                appInitialization.notifyAppLoaded();
-                appInitialization.notifySuccess();
                 setLoadingState({
                     state: LoadingState.Loaded,
                     authProvider: authProvider,
@@ -126,40 +163,6 @@ const AppInitializer: React.FC = (): JSX.Element => {
                 break;
         }
     }, [loadingState]);
-
-    // Set theme
-    useEffect(() => {
-        // allow theme overrides with search params
-        new URL(location.href).searchParams.get('theme');
-        const params = new URL(location.href).searchParams;
-        const themeOverride = params.get('theme');
-        // sdk theme strings include 'light', 'dark', and 'contrast'
-        // use these strings and this callback to set the theme on your app
-        // to test these changes, switch the theme in a hosted app like teams, in app settings
-        const handleThemeChange = (theme: string) => {
-            switch (theme) {
-                case 'dark':
-                    setTheme('dark-theme');
-                    break;
-                case 'contrast':
-                    setTheme('high-contrast-theme');
-                    break;
-                // light theme
-                default:
-                    setTheme('light-theme');
-                    break;
-            }
-        };
-        if (themeOverride) {
-            handleThemeChange(themeOverride);
-        } else {
-            // get theme from SDK
-            getContext((context) => {
-                registerOnThemeChangeHandler(handleThemeChange);
-                context.theme && handleThemeChange(context.theme);
-            });
-        }
-    }, []);
 
     const loadWithoutOnedrive = () => {
         setLoadingState({
